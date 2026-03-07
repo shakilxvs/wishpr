@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Manrope', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Reserve space for fixed bottom nav */
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Hide scrollbar on horizontal scroll containers */
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-x::-webkit-scrollbar { display: none; }
+
+/* Audio player minimal styling */
+audio {
+  width: 100%;
+  height: 36px;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* Textarea / input reset */
+textarea, input, select, button {
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+/* Framer motion page transitions */
+.page-enter { opacity: 0; }
+.page-enter-active { opacity: 1; transition: opacity 200ms; }
+
+/* Bottom nav padding for pages */
+.has-bottom-nav {
+  padding-bottom: 88px !important;
+}
