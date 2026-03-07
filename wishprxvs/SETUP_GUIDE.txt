@@ -1,0 +1,217 @@
+============================================================
+  WISHPR XVS — SETUP GUIDE (Read top to bottom, no skipping)
+============================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — Install Node.js
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Open your browser, go to:  https://nodejs.org
+2. Click the big green "LTS" button to download
+3. Open the downloaded file, click Next → Next → Finish
+4. Done.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — Put this folder in your GitHub repo
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You downloaded a folder called "wishprxvs".
+You need to put the FILES INSIDE IT into your GitHub repo.
+
+Option A (Easiest — drag and drop on GitHub):
+  1. Go to github.com → your "wishprxvs" repo
+  2. Click "uploading an existing file" or drag files into the browser
+  3. Upload ALL the files and folders from inside this "wishprxvs" folder
+  4. Keep the folder structure exactly as it is
+  5. Click "Commit changes"
+
+Option B (Using terminal in VS Code):
+  1. Open VS Code
+  2. Press Ctrl+` to open terminal
+  3. Type these commands one by one:
+
+     cd Desktop
+     (drag your wishprxvs folder into the terminal so it shows the path)
+     cd [path to your folder]
+     git init
+     git remote add origin https://github.com/YOUR_USERNAME/wishprxvs.git
+     git add .
+     git commit -m "Initial commit"
+     git push -u origin main
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — Sign up for Cloudinary (FREE audio storage)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Go to:  https://cloudinary.com
+2. Click "Sign Up For Free" — no credit card needed
+3. Verify your email, then log in
+4. On the Dashboard page, find your "Cloud Name" (something like "dxyz12345")
+   — write it down, you'll need it
+
+5. Now go to Settings → Upload (in the left sidebar)
+6. Scroll to "Upload presets"
+7. Click "Add upload preset"
+8. Set "Signing mode" to: Unsigned
+9. Set "Preset name" to: wishpr_voice
+10. Click Save
+
+Now you have your Cloud Name and Upload Preset ready.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — Fill in your .env.local file
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The file ".env.local" is already in this folder.
+Open it in VS Code (or Notepad).
+
+It already has your Firebase keys filled in.
+You only need to fill in your Cloudinary Cloud Name:
+
+  Change this line:
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=REPLACE_WITH_YOUR_CLOUD_NAME
+
+  To this (with YOUR actual cloud name):
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=dxyz12345
+
+Save the file.
+
+IMPORTANT: This file is already in .gitignore.
+GitHub will NEVER upload it. Your keys are safe.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 — Install the app on your computer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Open VS Code
+2. Open the wishprxvs folder: File → Open Folder → select wishprxvs
+3. Press Ctrl+` to open the terminal at the bottom
+4. Type this and press Enter:
+
+     npm install
+
+5. Wait for it to finish (1-3 minutes, lots of text = normal)
+6. When done, type this and press Enter:
+
+     npm run dev
+
+7. Open your browser and go to:  http://localhost:3000
+
+You should see the Wishpr Xvs website! 🎉
+
+To stop the app: press Ctrl+C in the terminal
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 6 — Set up Firestore security rules
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Go to:  https://console.firebase.google.com
+2. Click your "Wishprxvs" project
+3. Click "Firestore Database" in the left menu
+4. Click the "Rules" tab at the top
+5. Delete everything in the editor
+6. Open the file "firestore.rules" from this folder
+7. Copy ALL of it and paste into the Firebase editor
+8. Click "Publish"
+
+Done — your database is now protected.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 7 — Enable Google Sign-In in Firebase
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Firebase Console → Authentication → Sign-in method tab
+2. Click "Google"
+3. Toggle to "Enabled"
+4. Add your email as "Project support email"
+5. Click Save
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 8 — Deploy to Vercel (Make it live on the internet)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Go to:  https://vercel.com and log in
+2. Click "New Project"
+3. Find your "wishprxvs" repo and click "Import"
+4. Before clicking Deploy, click "Environment Variables"
+5. Add each of these one by one (copy from your .env.local file):
+
+   NEXT_PUBLIC_FIREBASE_API_KEY          → your value
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN      → wishprxvs.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID       → wishprxvs
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID → your value
+   NEXT_PUBLIC_FIREBASE_APP_ID           → your value
+   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME     → your cloud name
+   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET  → wishpr_voice
+   NEXT_PUBLIC_APP_URL                   → https://wishprxvs.vercel.app
+
+6. Click "Deploy"
+7. Wait ~2 minutes — your app is LIVE!
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 9 — Add your Vercel URL to Firebase
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Firebase Console → Authentication → Settings tab
+2. Scroll to "Authorized domains"
+3. Click "Add domain"
+4. Type: wishprxvs.vercel.app
+5. Click Add
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ YOUR APP IS LIVE!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Visit:  https://wishprxvs.vercel.app
+
+Your workflow from now on:
+  1. Edit files in VS Code
+  2. Test locally with: npm run dev
+  3. Push to GitHub with:
+       git add .
+       git commit -m "what you changed"
+       git push
+  4. Vercel automatically updates your live site!
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAGES THAT ARE BUILT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/                → Landing page
+/auth/signup     → Sign up (Google or Email)
+/auth/signin     → Sign in
+/dashboard       → Your personal dashboard + link
+/s/[slug]        → Your public anonymous send page
+/inbox           → Read messages people sent you
+/feed            → Community anonymous feed
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMMON ERRORS & FIXES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+"npm: command not found"
+→ Node.js is not installed. Redo Step 1.
+
+"Module not found"
+→ Run: npm install (you may have skipped this)
+
+"FirebaseError: Missing or insufficient permissions"
+→ You haven't set the Firestore rules. Do Step 6.
+
+"auth/unauthorized-domain"
+→ You haven't added your domain to Firebase. Do Step 9.
+
+Google sign-in popup doesn't work
+→ Make sure Google is enabled in Firebase Auth. Do Step 7.
+
+"Cannot find .env.local"
+→ Make sure the .env.local file is in the ROOT of your project
+  (same folder as package.json)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEED MORE FEATURES?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Once this is running, come back and say what you want next.
+Voice messages, polls, live Q&A, debate boards — all ready to build.
+============================================================
